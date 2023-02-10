@@ -772,6 +772,19 @@ func (q *queue) DeliverBodies(id string, txLists [][]*types.Transaction, txListH
 	defer q.lock.Unlock()
 
 	validate := func(index int, header *types.Header) error {
+		log.Info("Delivering block body", "number", header.Number)
+		if header.WithdrawalsHash == nil {
+			log.Info("Header withdrawals hash is nil")
+		} else {
+			log.Info("Header withdrawals hash is not nil", "headerWithdrawalsHash", header.WithdrawalsHash)
+		}
+		if withdrawalLists[index] == nil {
+			log.Info("Withdrawal body is nil")
+		} else {
+			log.Info("Withdrawal body is not nil")
+		}
+		log.Info("Withdrawal body hash", "withdrawalListHash", withdrawalListHashes[index])
+
 		if txListHashes[index] != header.TxHash {
 			return errInvalidBody
 		}

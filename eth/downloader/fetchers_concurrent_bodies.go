@@ -95,9 +95,9 @@ func (q *bodyQueue) deliver(peer *peerConnection, packet *eth.Response) (int, er
 	accepted, err := q.queue.DeliverBodies(peer.id, txs, hashsets[0], uncles, hashsets[1], withdrawals, hashsets[2])
 	switch {
 	case err == nil && len(txs) == 0:
-		peer.log.Trace("Requested bodies delivered")
+		peer.log.Info("Requested bodies delivered")
 	case err == nil:
-		peer.log.Trace("Delivered new batch of bodies", "count", len(txs), "accepted", accepted)
+		peer.log.Info("Delivered new batch of bodies", "count", len(txs), "accepted", accepted)
 	default:
 		peer.log.Debug("Failed to deliver retrieved bodies", "err", err)
 	}

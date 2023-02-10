@@ -71,7 +71,7 @@ func (v *BlockValidator) ValidateBody(block *types.Block) error {
 	if header.WithdrawalsHash != nil {
 		// Withdrawals list must be present in body after Shanghai.
 		if block.Withdrawals() == nil {
-			return fmt.Errorf("missing withdrawals in block body")
+			return fmt.Errorf("missing withdrawals in block body. withdrawals hash is %x, header hash is %x", header.WithdrawalsHash, header.Hash())
 		}
 		if hash := types.DeriveSha(block.Withdrawals(), trie.NewStackTrie(nil)); hash != *header.WithdrawalsHash {
 			return fmt.Errorf("withdrawals root hash mismatch (header value %x, calculated %x)", *header.WithdrawalsHash, hash)

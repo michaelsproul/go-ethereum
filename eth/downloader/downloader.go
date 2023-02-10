@@ -466,7 +466,7 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td, ttd *
 	if !beaconMode {
 		log.Debug("Synchronising with the network", "peer", p.id, "eth", p.version, "head", hash, "td", td, "mode", mode)
 	} else {
-		log.Debug("Backfilling with the network", "mode", mode)
+		log.Info("Backfilling with the network", "mode", mode)
 	}
 	defer func(start time.Time) {
 		log.Debug("Synchronisation terminated", "elapsed", common.PrettyDuration(time.Since(start)))
